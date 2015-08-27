@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--<item name="android:windowBackground">@color/background</item>-->
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:actionBarWidgetTheme">@style/ActionBarWidget</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+
+    </style>
+
+    <!-- Actionbar Theme -->
+    <style name="ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/actionbar_background</item>
+        <item name="android:backgroundStacked">@color/actionbar_background</item>
+        <item name="android:backgroundSplit">@color/actionbar_background</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/actionbar_background</item>
+        <item name="backgroundStacked">@color/actionbar_background</item>
+        <item name="backgroundSplit">@color/actionbar_background</item>
+    </style>
+
+    <style name="ActionBarWidget" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- SearchView customization-->
+        <!--<item name="searchViewSearchIcon">@android:drawable/ic_action_search</item>-->
+        <!--<item name="searchViewCloseIcon">@drawable/ic_action_remove</item>-->
+        <!--<item name="searchViewTextField">@drawable/ab_textfield_searchview</item>-->
+        <!--<item name="searchViewAutoCompleteTextView">@style/AutoCompleteTextView</item>-->
+    </style>
+
+    <style name="AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textCursorDrawable">@android:color/white</item>
+        <!--
+                <item name="android:textColorHighlight">@color/search_view_selected_text</item>
+        -->
+    </style>
+
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ParkingPanda</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">ParkingPanda</string>
+
+    <string name="navigation_drawer_open">Open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
+
+    <color name="actionbar_background">#009688</color>
+    <color name="actionbar_text">#ffffff</color>
+</resources>
