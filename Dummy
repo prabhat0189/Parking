@@ -1,0 +1,186 @@
+import java.util.ArrayList;
+
+import java.util.List;
+
+import java.util.concurrent.Executor;
+
+import java.util.concurrent.Executors;
+
+
+
+public class TestManager {
+
+
+
+private Executor executor;
+
+private int threadCount = 2; //default no of threads are 2
+
+private List<Runnable> tasks = new ArrayList<>();
+
+private String machineName =  "M1";
+
+
+private void initTasks() {
+
+
+final int total = QueryRepostitory.SP_NAMES.length;
+
+final int batchSize = total / threadCount;
+
+
+int currentSize = 0;
+
+
+do {
+
+final int start = currentSize;
+
+final int end = currentSize + batchSize;
+
+tasks.add(new Runnable() {
+
+@Override
+
+public void run() {
+
+List<QueryResult> results = QueryRepostitory.getPerformaceResults(machineName, start, Math.min(end, total));
+
+for(QueryResult result : results) {
+
+saveQueryResult(result);
+
+}
+
+}
+
+});
+
+currentSize = end;
+
+} while(currentSize < total);
+
+
+}
+
+
+private synchronized void saveQueryResult(QueryResult queryResult) {
+
+System.out.println(Thread.currentThread().getName());
+
+System.out.println("Machine: " + queryResult.machineName + "\tQueryName: " + queryResult.QueryName + "\tTimeTaken: " + queryResult.executionSecond);
+
+}
+
+
+public void recordQueryPerformanceLogs() {
+
+executor = Executors.newFixedThreadPool(threadCount);
+
+initTasks();
+
+for(Runnable task : tasks) {
+
+executor.execute(task);
+
+}
+
+}
+
+
+public static void main(String[] args) {
+
+TestManager testManager = new TestManager();
+
+
+
+if(args.length > 0) {
+
+testManager.machineName = args[0];
+
+}
+
+if(args.length > 1) {
+
+testManager.threadCount = Integer.parseInt(args[1]);
+
+}
+
+testManager.recordQueryPerformanceLogs();
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+import java.util.Random;
+
+
+
+public class QueryRepostitory {
+
+
+public static String SP_NAMES[] = {"SP1", "SP2","SP3", "SP4", "SP5",
+
+"SP6", "SP7","SP8", "SP9", "SP10"};
+
+
+public static List<QueryResult> getPerformaceResults(String machine, int spFrom, int spTo) {
+
+List<QueryResult> queryResults = new ArrayList<>();
+
+
+Random generator = new Random(0);
+
+for(int i = spFrom; i < spTo; ++i) {
+
+QueryResult qr =new QueryResult();
+
+qr.machineName = machine;
+
+qr.executionSecond = generator.nextDouble();
+
+qr.QueryName = SP_NAMES[i];
+
+queryResults.add(qr);
+
+}
+
+return queryResults;
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+public class QueryResult {
+
+
+public String QueryName;
+
+public double executionSecond;
+
+public String machineName;
+
+}
+
